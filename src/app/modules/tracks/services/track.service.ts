@@ -49,10 +49,16 @@ export class TrackService {
     return this.http.get(`${this.URL}/tracks`)
       .pipe(
         tap(data => console.log('🔴🔴🔴', data)),
-        mergeMap(({ data }: any) => this.skipById(data, 1)),
+        mergeMap(({ data }: any) => this.skipById(data, 2)),
         // map((dataRevertida) => { //TODO aplicar un filter comun de array
         //   return dataRevertida.filter((track: TrackModel) => track._id !== 1)
         // })
+        tap(data => console.log('🆗🆗🆗', data)),
+        catchError((err) => {
+          const { status, statusText } = err;
+          console.log('Algo paso revisame 🆗⚠⚠', [status, statusText]);
+          return of([])
+        })
       )
   }
 
