@@ -20,6 +20,10 @@ const routes: Routes = [
     path: 'history',
     component:HistoryPageComponent,
     loadChildren: () => import('@modules/history/history.module').then(m => m.HistoryModule)
+  },
+  {
+    path: '**',//TODO 404 cuando no existe la ruta
+    redirectTo: '/tracks'
   }
 ];
 

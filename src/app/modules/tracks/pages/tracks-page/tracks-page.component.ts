@@ -10,25 +10,33 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./tracks-page.component.css']
 })
 export class TracksPageComponent implements OnInit,OnDestroy {
-  mockTracksList: Array<TrackModel> = []
-  ramdomTracksList: Array<TrackModel> = []
+
+  tracksTrending: Array<TrackModel> = []
+  tracksRandom: Array<TrackModel> = []
   listObservers$: Array<Subscription> = []
+
   constructor(private trackService: TrackService) { }
 
   ngOnInit(): void {
-    this.trackService.getAllTracks$()
-      .subscribe((response: TrackModel[]) => {
-        this.mockTracksList = response
-      })
-      this.trackService.getAllRandom$()
-      .subscribe((response: TrackModel[]) => {
-        this.ramdomTracksList = response
-      })
+    this.loadDataAll()
+    this.loadDataRandom()
+  }
 
+  async loadDataAll(): Promise<any> {
+    this.tracksTrending = await this.trackService.getAllTracks$().toPromise()
+
+  }
+
+  loadDataRandom(): void {
+    this.trackService.getAllRandom$()
+      .subscribe((response: TrackModel[]) => {
+        this.tracksRandom = response
+      })
   }
 
   ngOnDestroy(): void {
 
   }
+
 
 }
