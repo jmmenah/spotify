@@ -17,11 +17,11 @@ export class AuthService {
       password
     }
     return this.http.post(`${this.URL}/auth/login`, body)
-    .pipe(
+    /*.pipe(
       tap((responseOK:any) =>{
         const [tokenSession, data] = responseOK;
         this.cookie.set('token', tokenSession, 4, '/');
       })
-    );
+    );*/
   }
 }

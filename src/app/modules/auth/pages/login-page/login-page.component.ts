@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent implements OnInit {
-
   errorSession: boolean = false
   formLogin: FormGroup = new FormGroup({});
 
@@ -38,10 +37,10 @@ export class LoginPageComponent implements OnInit {
     const { email, password } = this.formLogin.value
     this.authService.sendCredentials(email, password)
       //TODO: 200 <400
-      .subscribe(responseOk => { 
+      .subscribe(responseOk => { //TODO: Cuando el usuario credenciales Correctas ✔✔
         console.log('Session iniciada correcta', responseOk);
         const { tokenSession, data } = responseOk
-        this.cookie.set('token', tokenSession, 4, '/')
+        this.cookie.set('token', tokenSession, 4, '/') //TODO:📌📌📌📌
         this.router.navigate(['/', 'tracks'])
       },
         err => {//TODO error 400>=
