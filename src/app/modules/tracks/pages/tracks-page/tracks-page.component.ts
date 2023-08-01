@@ -15,26 +15,15 @@ export class TracksPageComponent implements OnInit,OnDestroy {
   constructor(private trackService: TrackService) { }
 
   ngOnInit(): void {
-    //TODO:🙄🙄 Sigo estando pendiente por si algo pasa agregas o quitas canciones
-    const observable1$ = this.trackService.allInOne$.subscribe(
-      (data) => {
-        this.mockTracksList=data;
-        console.log('OJO 🔴🔴 ', data);
-      }
-    )
+    this.trackService.getAllTracks$()
+      .subscribe((response: TrackModel[]) => {
+        this.mockTracksList = response
+      })
 
-    const observable2$ = this.trackService.exampleTracks$.subscribe(
-      (data) => {
-        this.mockTracksList=[...this.mockTracksList,...data]
-        console.log('OJO 🔴🔴 ', data);
-      }
-    )
-
-    this.listObservers$=[observable1$];
   }
 
   ngOnDestroy(): void {
-    this.listObservers$.forEach(u => u.unsubscribe());
+
   }
 
 }
