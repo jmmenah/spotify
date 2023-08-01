@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 })
 export class TracksPageComponent implements OnInit,OnDestroy {
   mockTracksList: Array<TrackModel> = []
+  ramdomTracksList: Array<TrackModel> = []
   listObservers$: Array<Subscription> = []
   constructor(private trackService: TrackService) { }
 
@@ -18,6 +19,10 @@ export class TracksPageComponent implements OnInit,OnDestroy {
     this.trackService.getAllTracks$()
       .subscribe((response: TrackModel[]) => {
         this.mockTracksList = response
+      })
+      this.trackService.getAllRandom$()
+      .subscribe((response: TrackModel[]) => {
+        this.ramdomTracksList = response
       })
 
   }
